@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "c9c799ee-4b8a-4790-a3fb-5e81b5afc2cf",
+		"name": "ServiceNow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15014897",
+		"_collection_link": "https://lively-robot-828203.postman.co/workspace/Learn_Postman~41390efd-aeae-44da-a17e-81d47f335677/collection/15014897-c9c799ee-4b8a-4790-a3fb-5e81b5afc2cf?action=share&source=collection_link&creator=15014897"
+	},
+	"item": [
+		{
+			"name": "Retrieve-Records",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retrieved all records from the table\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev94893.service-now.com/api/now/table/incident?sysparm_limit=1",
+					"protocol": "https",
+					"host": [
+						"dev94893",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident"
+					],
+					"query": [
+						{
+							"key": "sysparm_limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Records",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Record created properly\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"Resp=pm.response.json();\r",
+							"pm.globals.set(\"sysid\",Resp.result.sys_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"description\":\"Laptop not working\",\"short_description\":\"window\"}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev94893.service-now.com/api/now/table/incident",
+					"protocol": "https",
+					"host": [
+						"dev94893",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve-singleRecord",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retrieved a single record\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://dev94893.service-now.com/api/now/table/incident/{{sysid}}",
+					"protocol": "https",
+					"host": [
+						"dev94893",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"{{sysid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify-Record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Record modified properly\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"description\":\"Replaced laptop screen if not visible screen\",\"short_description\":\"change screen\",\"approval\":\"Team Lead\"}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev94893.service-now.com/api/now/table/incident/{{sysid}}",
+					"protocol": "https",
+					"host": [
+						"dev94893",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"{{sysid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update-Record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"description\":\"update the record\",\"number\":\"67\"}\r\n"
+				},
+				"url": {
+					"raw": "https://dev94893.service-now.com/api/now/table/incident/{{sysid}}",
+					"protocol": "https",
+					"host": [
+						"dev94893",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"{{sysid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-Record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Record deleted successfully\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://dev94893.service-now.com/api/now/table/incident/{{sysid}}",
+					"protocol": "https",
+					"host": [
+						"dev94893",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"{{sysid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "wnEEi@9w@5XH",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
