@@ -7,7 +7,7 @@ import io.restassured.RestAssured;
 
 public class DeleteIssue extends JiraBaseClass {
 	
-	@Test(dependsOnMethods="jiralearning.UpdateIssue.updateIssue")
+	@Test(dependsOnMethods="jiralearning.CreateIssue.createIssue")
 	
 	public void deteleIssue() {
 		
