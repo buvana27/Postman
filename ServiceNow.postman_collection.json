@@ -16,7 +16,9 @@
 						"exec": [
 							"pm.test(\"Retrieved all records from the table\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -79,7 +81,20 @@
 							"    pm.response.to.have.status(201);\r",
 							"});\r",
 							"Resp=pm.response.json();\r",
-							"pm.globals.set(\"sysid\",Resp.result.sys_id);"
+							"\r",
+							"pm.globals.set(\"sysid\",Resp.result.sys_id);\r",
+							"\r",
+							"//save the reg. expression formate into a variable\r",
+							"const incnumber= /[A-Z]+[0-9]+/;\r",
+							"//match the variable from the response\r",
+							"incidentNumber=pm.response.text().match(incnumber);\r",
+							"console.log(\"value is\", incidentNumber);\r",
+							"//Assertion - to make sure incident number is not null\r",
+							"pm.test(\"Verify incidentNumber is null\",function()\r",
+							"{\r",
+							"    pm.expect(incidentNumber).to.not.null;\r",
+							"}\r",
+							")"
 						],
 						"type": "text/javascript"
 					}
@@ -90,7 +105,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"description\":\"Laptop not working\",\"short_description\":\"window\"}\r\n",
+					"raw": "{\r\n    \"description\": \"Laptop not working\",\r\n    \"short_description\": \"window\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -98,10 +113,10 @@
 					}
 				},
 				"url": {
-					"raw": "https://dev94893.service-now.com/api/now/table/incident",
+					"raw": "https://dev95088.service-now.com/api/now/table/incident",
 					"protocol": "https",
 					"host": [
-						"dev94893",
+						"dev95088",
 						"service-now",
 						"com"
 					],
@@ -231,7 +246,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"description\":\"update the record\",\"number\":\"67\"}\r\n"
+					"raw": "{\r\n    \"description\": \"update the record\",\r\n    \"number\": \"67\"\r\n}"
 				},
 				"url": {
 					"raw": "https://dev94893.service-now.com/api/now/table/incident/{{sysid}}",

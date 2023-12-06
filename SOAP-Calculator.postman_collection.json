@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "5b62a80a-e030-4b00-959f-9298daaf870a",
+		"name": "SOAP-Calculator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15014897",
+		"_collection_link": "https://lively-robot-828203.postman.co/workspace/Learn_Postman~41390efd-aeae-44da-a17e-81d47f335677/collection/15014897-5b62a80a-e030-4b00-959f-9298daaf870a?action=share&source=collection_link&creator=15014897"
+	},
+	"item": [
+		{
+			"name": "Addition",
+			"item": [
+				{
+					"name": "Add-Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 200 is verified\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <Add xmlns=\"http://tempuri.org/\">\r\n      <intA>{{IntA}}</intA>\r\n      <intB>{{IntB}}</intB>\r\n    </Add>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n\r\n"
+						},
+						"url": {
+							"raw": "http://www.dneonline.com/calculator.asmx",
+							"protocol": "http",
+							"host": [
+								"www",
+								"dneonline",
+								"com"
+							],
+							"path": [
+								"calculator.asmx"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

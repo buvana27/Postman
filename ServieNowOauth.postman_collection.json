@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "f2b80ccc-6474-40ba-b9ed-6a821688a7d1",
+		"name": "ServieNowOauth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15014897",
+		"_collection_link": "https://lively-robot-828203.postman.co/workspace/Learn_Postman~41390efd-aeae-44da-a17e-81d47f335677/collection/15014897-f2b80ccc-6474-40ba-b9ed-6a821688a7d1?action=share&source=collection_link&creator=15014897"
+	},
+	"item": [
+		{
+			"name": "GenarateOauth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"var res=pm.response.json();\r",
+							"var id=res.access_token;\r",
+							"pm.globals.set(\"TokenServiceNow\",id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "55c3f2b2fb3131106f1115c50bd93548",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "UAD,e2d$J$",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "uIG1+8px!mZI",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://dev95088.service-now.com/oauth_token.do",
+					"protocol": "https",
+					"host": [
+						"dev95088",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"oauth_token.do"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-incident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"Resp=pm.response.json();\r",
+							"pm.globals.set(\"sysidoathu\",Resp.result.sys_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "uIG1+8px!mZI",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Laptop not working\",\r\n    \"short_description\": \"window\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev95088.service-now.com/api/now/table/incident",
+					"protocol": "https",
+					"host": [
+						"dev95088",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "create-incident",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Laptop not working\",\r\n    \"short_description\": \"window\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev95088.service-now.com/api/now/table/incident",
+							"protocol": "https",
+							"host": [
+								"dev95088",
+								"service-now",
+								"com"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=8A7F41186288ED0D25CA24C67A22DAAE; Path=/; HttpOnly;Secure"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "glide_user=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; Secure; HttpOnly"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "glide_user_session=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; Secure; HttpOnly"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "glide_user_route=glide.4b27f2a34104f158153e064ca6d79992; Max-Age=2147483647; Expires=Fri, 02-Nov-2091 12:46:06 GMT; Path=/; Secure; HttpOnly"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "glide_session_store=CB73B74B9771711078BDFA56F053AF31; Max-Age=1800; Expires=Sun, 15-Oct-2023 10:01:59 GMT; Path=/; Secure; HttpOnly"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "BIGipServerpool_dev95088=831608842.50496.0000; path=/; Httponly; Secure"
+						},
+						{
+							"key": "Server-Timing",
+							"value": "sem_wait;dur=0, sesh_wait;dur=0"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-Is-Logged-In",
+							"value": "true"
+						},
+						{
+							"key": "X-Transaction-ID",
+							"value": "0373b74b3211"
+						},
+						{
+							"key": "Location",
+							"value": "https://dev95088.service-now.com/api/now/table/incident/4f737f0b97b1711078bdfa56f053afe1"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-store,no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache,no-store,must-revalidate,max-age=-1"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Oct 2023 09:31:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=70"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "ServiceNow"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=63072000; includeSubDomains"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"result\": {\n        \"parent\": \"\",\n        \"made_sla\": \"true\",\n        \"caused_by\": \"\",\n        \"watch_list\": \"\",\n        \"upon_reject\": \"cancel\",\n        \"sys_updated_on\": \"2023-10-15 09:31:59\",\n        \"child_incidents\": \"0\",\n        \"hold_reason\": \"\",\n        \"origin_table\": \"\",\n        \"task_effective_number\": \"INC0010023\",\n        \"approval_history\": \"\",\n        \"number\": \"INC0010023\",\n        \"resolved_by\": \"\",\n        \"sys_updated_by\": \"admin\",\n        \"opened_by\": {\n            \"link\": \"https://dev95088.service-now.com/api/now/table/sys_user/6816f79cc0a8016401c5a33be04be441\",\n            \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n        },\n        \"user_input\": \"\",\n        \"sys_created_on\": \"2023-10-15 09:31:59\",\n        \"sys_domain\": {\n            \"link\": \"https://dev95088.service-now.com/api/now/table/sys_user_group/global\",\n            \"value\": \"global\"\n        },\n        \"state\": \"1\",\n        \"route_reason\": \"\",\n        \"sys_created_by\": \"admin\",\n        \"knowledge\": \"false\",\n        \"order\": \"\",\n        \"calendar_stc\": \"\",\n        \"closed_at\": \"\",\n        \"cmdb_ci\": \"\",\n        \"delivery_plan\": \"\",\n        \"contract\": \"\",\n        \"impact\": \"3\",\n        \"active\": \"true\",\n        \"work_notes_list\": \"\",\n        \"business_service\": \"\",\n        \"business_impact\": \"\",\n        \"priority\": \"5\",\n        \"sys_domain_path\": \"/\",\n        \"rfc\": \"\",\n        \"time_worked\": \"\",\n        \"expected_start\": \"\",\n        \"opened_at\": \"2023-10-15 09:31:59\",\n        \"business_duration\": \"\",\n        \"group_list\": \"\",\n        \"work_end\": \"\",\n        \"caller_id\": \"\",\n        \"reopened_time\": \"\",\n        \"resolved_at\": \"\",\n        \"approval_set\": \"\",\n        \"subcategory\": \"\",\n        \"work_notes\": \"\",\n        \"universal_request\": \"\",\n        \"short_description\": \"window\",\n        \"close_code\": \"\",\n        \"correlation_display\": \"\",\n        \"delivery_task\": \"\",\n        \"work_start\": \"\",\n        \"assignment_group\": \"\",\n        \"additional_assignee_list\": \"\",\n        \"business_stc\": \"\",\n        \"cause\": \"\",\n        \"description\": \"Laptop not working\",\n        \"origin_id\": \"\",\n        \"calendar_duration\": \"\",\n        \"close_notes\": \"\",\n        \"notify\": \"1\",\n        \"service_offering\": \"\",\n        \"sys_class_name\": \"incident\",\n        \"closed_by\": \"\",\n        \"follow_up\": \"\",\n        \"parent_incident\": \"\",\n        \"sys_id\": \"4f737f0b97b1711078bdfa56f053afe1\",\n        \"contact_type\": \"\",\n        \"reopened_by\": \"\",\n        \"incident_state\": \"1\",\n        \"urgency\": \"3\",\n        \"problem_id\": \"\",\n        \"company\": \"\",\n        \"reassignment_count\": \"0\",\n        \"activity_due\": \"\",\n        \"assigned_to\": \"\",\n        \"severity\": \"3\",\n        \"comments\": \"\",\n        \"approval\": \"not requested\",\n        \"sla_due\": \"\",\n        \"comments_and_work_notes\": \"\",\n        \"due_date\": \"\",\n        \"sys_mod_count\": \"0\",\n        \"reopen_count\": \"0\",\n        \"sys_tags\": \"\",\n        \"escalation\": \"0\",\n        \"upon_approval\": \"proceed\",\n        \"correlation_id\": \"\",\n        \"location\": \"\",\n        \"category\": \"inquiry\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "update-incident",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TokenServiceNow}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"update the record\",\r\n    \"number\": \"67\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev95088.service-now.com/api/now/table/incident/{{sysidoathu}}",
+					"protocol": "https",
+					"host": [
+						"dev95088",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"{{sysidoathu}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-incident",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer  {{TokenServiceNow}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dev95088.service-now.com/api/now/table/incident/{{sysidoathu}}",
+					"protocol": "https",
+					"host": [
+						"dev95088",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"{{sysidoathu}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

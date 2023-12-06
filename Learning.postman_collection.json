@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "e0676b21-cdb2-433e-b08f-6594c4bb2964",
+		"name": "Learning",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15014897",
+		"_collection_link": "https://lively-robot-828203.postman.co/workspace/Learn_Postman~41390efd-aeae-44da-a17e-81d47f335677/collection/15014897-e0676b21-cdb2-433e-b08f-6594c4bb2964?action=share&source=collection_link&creator=15014897"
+	},
+	"item": [
+		{
+			"name": "List_Countries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"American is found -  matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"American\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\r\n  <soap12:Body>\r\n    <ListOfCountryNamesByName xmlns=\"http://www.oorsprong.org/websamples.countryinfo\">\r\n    </ListOfCountryNamesByName>\r\n  </soap12:Body>\r\n</soap12:Envelope>\r\n"
+				},
+				"url": {
+					"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+					"protocol": "http",
+					"host": [
+						"webservices",
+						"oorsprong",
+						"org"
+					],
+					"path": [
+						"websamples.countryinfo",
+						"CountryInfoService.wso"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Country_lon_lat",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?lat=20.5937&lon=78.9629&appid=a754ee10d05c5c37be3dd55317eb060d",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "20.5937"
+						},
+						{
+							"key": "lon",
+							"value": "78.9629"
+						},
+						{
+							"key": "appid",
+							"value": "a754ee10d05c5c37be3dd55317eb060d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getuuid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"Resp=pm.response.json();\r",
+							"uuid = pm.collectionVariables.set(\"uuid\",Resp);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://httpbin.org/uuid",
+					"protocol": "https",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"uuid"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "uuid",
+			"value": ""
+		}
+	]
+}

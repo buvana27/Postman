@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "83f3290c-3b1c-430a-a419-a7715e920574",
+		"name": "Jira-Tool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15014897",
+		"_collection_link": "https://lively-robot-828203.postman.co/workspace/Learn_Postman~41390efd-aeae-44da-a17e-81d47f335677/collection/15014897-83f3290c-3b1c-430a-a419-a7715e920574?action=share&source=collection_link&creator=15014897"
+	},
+	"item": [
+		{
+			"name": "Create-issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"Resp=pm.response.json();\r",
+							"pm.globals.set(\"issueid\",Resp.id);\r",
+							"\r",
+							"\r",
+							"const issue= /[A-Z]+-\\d*/;\r",
+							"//match the variable from the response\r",
+							"issueNumber=pm.response.text().match(issue);\r",
+							"console.log(\"value is\", issueNumber);\r",
+							"//Assertion - to make sure incident number is not null\r",
+							"pm.test(\"Verify issueNumber is null\",function()\r",
+							"{\r",
+							"    pm.expect(issueNumber).to.not.null;\r",
+							"}\r",
+							")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"project\": {\r\n            \"key\": \"BUV\"\r\n        },\r\n        \"summary\": \"create issue in RA project\",\r\n        \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n        \"issuetype\": {\r\n            \"name\": \"Bug\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://testingnssystems.atlassian.net/rest/api/2/issue/",
+					"protocol": "https",
+					"host": [
+						"testingnssystems",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search-Issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://testingnssystems.atlassian.net/rest/api/2/issue/{{issueid}}",
+					"protocol": "https",
+					"host": [
+						"testingnssystems",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{issueid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit-issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"description\": \"Bug creation Using REST API for testing\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://testingnssystems.atlassian.net/rest/api/2/issue/{{issueid}}",
+					"protocol": "https",
+					"host": [
+						"testingnssystems",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{issueid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Serach-All-issues",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://testingnssystems.atlassian.net/rest/api/2/search?jql=project=SP",
+					"protocol": "https",
+					"host": [
+						"testingnssystems",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"search"
+					],
+					"query": [
+						{
+							"key": "jql",
+							"value": "project=SP"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List-All-issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"Resp=pm.response.json();\r",
+							"pm.globals.set(\"iid\",Resp[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://testingnssystems.atlassian.net/rest/api/2/issuetype",
+					"protocol": "https",
+					"host": [
+						"testingnssystems",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issuetype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List-specific-issue-type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://testingnssystems.atlassian.net/rest/api/2/issuetype/{{iid}}",
+					"protocol": "https",
+					"host": [
+						"testingnssystems",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issuetype",
+						"{{iid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://testingnssystems.atlassian.net/rest/api/2/issue/{{issueid}}",
+					"protocol": "https",
+					"host": [
+						"testingnssystems",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{issueid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "buvaneshwarisrinivasan@gmail.com",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "ATATT3xFfGF0oBoXFLe0psIqAFSvEKuLzydmRg-5wdSG--hDGq5KZMO4-3azXBr6uviBfqtCqEX0sQV0clWSPsKLDfAqRu_4MyXrI_5L1_jeCMhuXCi5ixxTXgsgtdrAavR3vpffvzaoGaOskYuTx52ZoOg_9LnAMCy_TA_iwvX9oKBVx9BQx8E=35349812",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
